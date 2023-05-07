@@ -57,7 +57,11 @@ def get_files(path):
     files = []
     for file in os.listdir(path):
         if file != os.path.basename(__file__):
-            files.append(file)
+            if not os.path.isdir(file):
+                if not os.path.splitext(file)[1]:
+                    continue
+                files.append(file)
+                
     return files
 
 if check_for_updates() != True:
