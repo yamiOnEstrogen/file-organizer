@@ -6,7 +6,6 @@ import requests
 version = "1.0.2"
 
 def check_for_updates():
-    print("Checking for updates...")
     response = requests.get("https://api.github.com/repos/0xhylia/file-organizer/releases/latest")
     if response.status_code == 200:
         json = response.json()
