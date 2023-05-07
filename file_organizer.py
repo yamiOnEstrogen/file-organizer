@@ -7,6 +7,9 @@ def clear():
     os.system("cls" if os.name == "nt" else "clear")
 
 
+args = sys.argv[1:]
+
+
 types = {
     "Images": [".jpg", ".jpeg", ".png", ".gif", ".tiff", ".psd", ".raw", ".bmp", ".heif", ".indd", ".svg", "webp"],
     "Videos": [".avi", ".flv", ".wmv", ".mov", ".mp4", ".webm", ".vob", ".mng", ".qt", ".mpg", ".mpeg", ".3gp", ".mkv"],
@@ -18,7 +21,7 @@ types = {
     "Executables": [".exe", ".apk", ".bat", ".cgi", ".pl", ".com", ".gadget", ".jar", ".msi", ".wsf"],
     "Fonts": [".ttf", ".otf", ".fon", ".fnt"],
     "Presentations": [".key", ".odp", ".pps", ".pptx"],
-    "Programming": [".py", ".c", ".class", ".cpp", ".cs", ".h", ".java", ".sh", ".swift", ".vb", ".js", ".php", ".html", ".css", ".scss", ".less", ".json", ".go", ".pl", ".lua", ".rb", ".ts", ".as", ".vb", ".xhtml", ".jsp", ".jspx", ".wss", ".do", ".action", ".pl", ".cgi", ".php4", ".php3", ".phtml", ".py", ".pyc", ".pyo", ".rhtml", ".shtml", ".xml", ".rss", ".svg"],
+    "Programming": [".py", ".c", ".class", ".cpp", ".cs", ".h", ".java", ".sh", ".swift", ".vb", ".js", ".php", ".html", ".css", ".scss", ".less", ".json", ".go", ".pl", ".lua", ".rb", ".ts", ".as", ".vb", ".xhtml", ".jsp", ".jspx", ".wss", ".do", ".action", ".pl", ".cgi", ".php4", ".php3", ".phtml", ".py", ".pyc", ".pyo", ".rhtml", ".shtml", ".xml", ".rss", ".svg", ".md"],
     "Spreadsheets": [".ods", ".xls", ".xlsm", ".xlsx"],
     "System": [".bak", ".cab", ".cfg", ".cpl", ".cur", ".dll", ".dmp", ".drv", ".icns", ".ico", ".ini", ".lnk", ".msi", ".sys", ".tmp", ".pem"],
     "Web": [".asp", ".aspx", ".cer", ".cfm", ".csr", ".css", ".dcr", ".htm", ".html", ".js", ".jsp", ".php", ".rss", ".xhtml", ".cgi", ".pl", ".py", ".xhtml", ".rss", ".xml", ".js", ".jsp", ".jspx", ".wss", ".do", ".action", ".pl", ".cgi", ".php4", ".php3", ".phtml", ".py", ".pyc", ".pyo", ".rhtml", ".shtml", ".xml", ".rss", ".svg"],
@@ -30,6 +33,17 @@ types = {
     "Unity": [".unitypackage", ".vrm"],
 }
 
+if len(args) > 0 and args[0] == "--list":
+    for type in types:
+        print(type + ": " + str(types[type]))
+    sys.exit()
+
+def get_files(path):
+    files = []
+    for file in os.listdir(path):
+        if file != os.path.basename(__file__):
+            files.append(file)
+    return files
 
 clear()
 print("Enter the path to the folder you want to organize: ")
@@ -40,7 +54,9 @@ if not os.path.exists(path):
     print("The path does not exist")
     sys.exit()
 
-files = os.listdir(path)
+files = get_files(path)
+
+
 
 print("Are you sure you want to organize the files in this folder? (y/n)")
 choice = input()
