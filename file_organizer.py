@@ -1,6 +1,22 @@
 import os
 import sys
 import time
+import requests
+
+version = "1.0.2"
+
+def check_for_updates():
+    print("Checking for updates...")
+    response = requests.get("https://api.github.com/repos/0xhylia/file-organizer/releases/latest")
+    if response.status_code == 200:
+        json = response.json()
+        if json["tag_name"] != version:
+            return "There is a new version available. You can download it from https://github.com/0xhylia/file-organizer/releases/latest"
+        else:
+            return True
+    else:
+        return "There was an error checking for updates. Please try again later."
+
 
 
 def clear():
@@ -45,7 +61,14 @@ def get_files(path):
             files.append(file)
     return files
 
+if check_for_updates() != True:
+    print(check_for_updates())
+    sys.exit()
 clear()
+print("Welcome to File Organizer!")
+print("Version: " + version)
+print("Author: 0xhylia")
+print("Github: https://github.com/0xhylia/file-organizer")
 print("Enter the path to the folder you want to organize: ")
 path = input()
 
