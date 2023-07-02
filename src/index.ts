@@ -14,9 +14,6 @@ app.use(bodyParser.json({ limit: "50mb" }));
 app.set("trust proxy", 1);
 
 
-
-
-
 app.get("/", async (req, res) => {
     return res.status(200).json({
         name,
