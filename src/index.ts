@@ -5,7 +5,7 @@ import { URLSearchParams } from "url";
 import path from "path";
 import fs from "fs";
 import axios from "axios";
-const { name, version } = require("../../package.json");
+const { name, version } = require("../package.json");
 import { config } from "dotenv";
 config();
 
@@ -36,6 +36,7 @@ app.get("*", async (req, res) => {
 });
 
 app.listen(process.env.PORT || 80, () => {
+    console.clear();
     console.log(
         `${name.replaceAll("-", " ")} v${version} is listening at http://localhost:${process.env.PORT || 80}`
     );
